@@ -31,8 +31,5 @@ class PointsIndex(GlobalSecondaryIndex):
         # All attributes are projected
         projection = AllProjection()
 
-    # This attribute is the hash key for the index
-    # Note that this attribute must also exist
-    # in the model
     points = NumberAttribute(hash_key=True)
     

@@ -12,28 +12,49 @@ Globals:
     Runtime: python3.8
 
 Resources:
-  AddUserFunction:
+  TestFunction:
     Type: AWS::Serverless::Function 
     Properties:
       CodeUri: bingsuUser/
       Handler: app.lambda_handler
+      
+  AddUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.add_user
+      
+  UpdateUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.update_user
             
   UserTable:
     Type: AWS::DynamoDB::Table
     Properties:
       AttributeDefinitions:
-        - AttributeName: userId
+        - AttributeName: user_id
           AttributeType: S
+        - AttributeName: points
+          AttributeType: N
       BillingMode: PAY_PER_REQUEST
       KeySchema:
-        - AttributeName: userId
+        - AttributeName: user_id
           KeyType: HASH
+      GlobalSecondaryIndexes:
+        - IndexName: points
+          KeySchema:
+            - AttributeName: points
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
       TableName: "BingsuUser"
 
 Outputs:
-  AddUserFunction:
+  TestFunction:
     Description: "AddUser Lambda Function ARN"
-    Value: !GetAtt AddUserFunction.Arn
-  AddUserFunctionIamRole:
+    Value: !GetAtt TestFunction.Arn
+  TestFunctionIamRole:
     Description: "Implicit IAM Role created for AddUser function"
-    Value: !GetAtt AddUserFunctionRole.Arn
+    Value: !GetAtt TestFunctionRole.Arn

@@ -1,1 +1,1 @@
-from src.app import lambda_handler, add_user
+from src.app import lambda_handler, add_user, update_user

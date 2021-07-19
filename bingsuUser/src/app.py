@@ -19,4 +19,10 @@ def add_user(event, context):
 #         co2_amount = co2_amount
 #     )
 #     user_item.save()
-    return 'Hello World'
+    return {'data': 'Hello World'}
+
+def update_user(event, context):
+    
+    
+    return {'data': 'Hello World'}
+

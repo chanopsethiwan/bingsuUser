@@ -37,7 +37,7 @@ def add_user(event, context):
         grab_id = grab_id,
         robinhood_id = robinhood_id,
         foodpanda_id = foodpanda_id,
-        co2_amount = co2_amount
+        co2_amount = int(co2_amount)
     )
     user_item.save()
     return {'status': 200}
@@ -84,16 +84,16 @@ def update_user(event, context):
         user_id = user_id,
         username = username,
         password = password,
-        grab_points = grab_points,
-        robinhood_points = robinhood_points,
-        foodpanda_points = foodpanda_points,
-        coins = coins,
+        grab_points = int(grab_points),
+        robinhood_points = int(robinhood_points),
+        foodpanda_points = int(foodpanda_points),
+        coins = int(coins),
         email = email,
         phone_number = phone_number,
         grab_id = grab_id,
         robinhood_id = robinhood_id,
         foodpanda_id = foodpanda_id,
-        co2_amount = co2_amount
+        co2_amount = int(co2_amount)
     )
     user_item.save()
     return {'status': 200}

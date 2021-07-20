@@ -3,30 +3,6 @@ from pynamodb.attributes import UnicodeAttribute, NumberAttribute
 from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
 import os
 
-class PynamoBingsuUser(Model):
-    ''' database to store user '''
-    class Meta:
-        table_name = os.environ.get('BINGSU_USER_TABLE_NAME')
-        region = 'ap-southeast-1'
-    user_id = UnicodeAttribute(hash_key = True)
-    username = UnicodeAttribute()
-    password = UnicodeAttribute()
-    grab_points = NumberAttribute()
-    robinhood_points = NumberAttribute()
-    foodpanda_points = NumberAttribute()
-    coins = NumberAttribute()
-    email = UnicodeAttribute()
-    phone_number = UnicodeAttribute()
-    grab_id = UnicodeAttribute(null=True)
-    robinhood_id = UnicodeAttribute(null=True)
-    foodpanda_id = UnicodeAttribute(null=True)
-    co2_amount = NumberAttribute()
-    
-    username_index = UsernameIndex()
-    grab_points_index = GrabPointsIndex()
-    robinhood_points_index = RobinhoodPointsIndex()
-    foodpanda_points_index = FoodpandaPointsIndex()
-    
 class UsernameIndex(GlobalSecondaryIndex):
     """
     This class represents a global secondary index
@@ -78,4 +54,30 @@ class FoodpandaPointsIndex(GlobalSecondaryIndex):
         projection = AllProjection()
 
     foodpanda_points = NumberAttribute(hash_key=True)
+
+class PynamoBingsuUser(Model):
+    ''' database to store user '''
+    class Meta:
+        table_name = os.environ.get('BINGSU_USER_TABLE_NAME')
+        region = 'ap-southeast-1'
+    user_id = UnicodeAttribute(hash_key = True)
+    username = UnicodeAttribute()
+    password = UnicodeAttribute()
+    grab_points = NumberAttribute()
+    robinhood_points = NumberAttribute()
+    foodpanda_points = NumberAttribute()
+    coins = NumberAttribute()
+    email = UnicodeAttribute()
+    phone_number = UnicodeAttribute()
+    grab_id = UnicodeAttribute(null=True)
+    robinhood_id = UnicodeAttribute(null=True)
+    foodpanda_id = UnicodeAttribute(null=True)
+    co2_amount = NumberAttribute()
+    
+    username_index = UsernameIndex()
+    grab_points_index = GrabPointsIndex()
+    robinhood_points_index = RobinhoodPointsIndex()
+    foodpanda_points_index = FoodpandaPointsIndex()
+    
+
     

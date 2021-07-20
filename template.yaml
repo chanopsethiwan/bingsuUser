@@ -44,6 +44,8 @@ Resources:
       AttributeDefinitions:
         - AttributeName: user_id
           AttributeType: S
+        - AttributeName: username
+          AttributeType: S
         - AttributeName: grab_points
           AttributeType: N
         - AttributeName: robinhood_points
@@ -55,6 +57,12 @@ Resources:
         - AttributeName: user_id
           KeyType: HASH
       GlobalSecondaryIndexes:
+        - IndexName: username
+          KeySchema:
+            - AttributeName: username
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
         - IndexName: grab_points
           KeySchema:
             - AttributeName: grab_points

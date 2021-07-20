@@ -11,6 +11,8 @@ def add_user(event, context):
     item = event['arguments']
     user_id = item['user_id']
     username = item['username']
+    
+    
     password = item['password']
     grab_points = item.get('grab_points', None)
     robinhood_points = item.get('robinhood_points', None)
@@ -40,7 +42,7 @@ def add_user(event, context):
         co2_amount = co2_amount
     )
     user_item.save()
-    return {'data': 'Hello World'}
+    return {'status': 200}
 
 def get_user_by_id(event, context):
     item = event['arguments']
@@ -51,9 +53,12 @@ def get_user_by_id(event, context):
     response = table.query(
         KeyConditionExpression=Key('user_id').eq(user_id)
     )
-    return {'data': response['Items']}
+    return {'status': 200,
+            'data': response['Items']}
     
 def update_user(event, context):
+    item = event['arguments']
+    user_id = item['user_id']
     
     
     return {'data': 'Hello World'}

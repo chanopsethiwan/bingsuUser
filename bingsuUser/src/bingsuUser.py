@@ -22,6 +22,11 @@ class PynamoBingsuUser(Model):
     foodpanda_id = UnicodeAttribute(null=True)
     co2_amount = NumberAttribute()
     
+    username_index = UsernameIndex()
+    grab_points_index = GrabPointsIndex()
+    robinhood_points_index = RobinhoodPointsIndex()
+    foodpanda_points_index = FoodpandaPointsIndex()
+    
 class UsernameIndex(GlobalSecondaryIndex):
     """
     This class represents a global secondary index

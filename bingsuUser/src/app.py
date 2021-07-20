@@ -63,7 +63,7 @@ def update_user(event, context):
     response = table.query(
         KeyConditionExpression=Key('user_id').eq(user_id)
     )
-    current_dict = response['Items']
+    current_dict = response['Items'][0]
     for i in item:
         current_dict[i] = item[i]
     user_id = current_dict['user_id']

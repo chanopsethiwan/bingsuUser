@@ -5,6 +5,7 @@ def lambda_handler(event, context):
     return {'data': 'Hello World'}
 
 def add_user(event, context):
+    console.log('Received event: ', JSON.stringify(event,3))
 #     user_item = PynamoBingsuUser(
 #         user_id = user_id,
 #         username = username,

@@ -14,11 +14,11 @@ class PynamoBingsuUser(Model):
     points = NumberAttribute()
     coins = NumberAttribute()
     email = UnicodeAttribute()
-    phone_number = NumberAttribute()
+    phone_number = UnicodeAttribute()
     grab_id = UnicodeAttribute(null=True)
     robinhood_id = UnicodeAttribute(null=True)
     foodpanda_id = UnicodeAttribute(null=True)
-    co2_amount = NumberAttribute(null=True)
+    co2_amount = NumberAttribute()
     
 class PointsIndex(GlobalSecondaryIndex):
     """

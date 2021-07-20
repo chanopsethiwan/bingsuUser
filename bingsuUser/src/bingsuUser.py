@@ -11,7 +11,9 @@ class PynamoBingsuUser(Model):
     user_id = UnicodeAttribute(hash_key = True)
     username = UnicodeAttribute()
     password = UnicodeAttribute()
-    points = NumberAttribute()
+    grab_points = NumberAttribute()
+    robinhood_points = NumberAttribute()
+    foodpanda_points = NumberAttribute()
     coins = NumberAttribute()
     email = UnicodeAttribute()
     phone_number = UnicodeAttribute()
@@ -20,16 +22,42 @@ class PynamoBingsuUser(Model):
     foodpanda_id = UnicodeAttribute(null=True)
     co2_amount = NumberAttribute()
     
-class PointsIndex(GlobalSecondaryIndex):
+class GrabPointsIndex(GlobalSecondaryIndex):
     """
     This class represents a global secondary index
     """
     class Meta:
-        index_name = 'points'
+        index_name = 'grab_points'
         read_capacity_units = 1
         write_capacity_units = 1
         # All attributes are projected
         projection = AllProjection()
 
-    points = NumberAttribute(hash_key=True)
+    grab_points = NumberAttribute(hash_key=True)
+    
+class RobinhoodPointsIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'robinhood_points'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    robinhood_points = NumberAttribute(hash_key=True)
+    
+class FoodpandaPointsIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'foodpanda_points'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    foodpanda_points = NumberAttribute(hash_key=True)
     

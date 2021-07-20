@@ -38,16 +38,32 @@ Resources:
       AttributeDefinitions:
         - AttributeName: user_id
           AttributeType: S
-        - AttributeName: points
+        - AttributeName: grab_points
+          AttributeType: N
+        - AttributeName: robinhood_points
+          AttributeType: N
+        - AttributeName: foodpanda_points
           AttributeType: N
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: user_id
           KeyType: HASH
       GlobalSecondaryIndexes:
-        - IndexName: points
+        - IndexName: grab_points
           KeySchema:
-            - AttributeName: points
+            - AttributeName: grab_points
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: robinhood_points
+          KeySchema:
+            - AttributeName: robinhood_points
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: foodpanda_points
+          KeySchema:
+            - AttributeName: foodpanda_points
               KeyType: HASH
           Projection: 
             ProjectionType: ALL

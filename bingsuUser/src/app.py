@@ -51,34 +51,21 @@ def update_user(event, context):
     current_dict = response['Items'][0]
     for i in item:
         current_dict[i] = item[i]
-    user_id = current_dict['user_id']
-    username = current_dict['username']
-    password = current_dict['password']
-    grab_points = current_dict.get('grab_points', None)
-    robinhood_points = current_dict.get('robinhood_points', None)
-    foodpanda_points = current_dict.get('foodpanda_points', None)
-    coins = current_dict['coins']
-    email = current_dict['email']
-    phone_number = current_dict['phone_number']
-    grab_id = current_dict.get('grab_id', None)
-    robinhood_id = current_dict.get('robinhood_id', None)
-    foodpanda_id = current_dict.get('foodpanda_id', None)
-    co2_amount = current_dict['co2_amount']
     
     user_item = PynamoBingsuUser(
-        user_id = user_id,
-        username = username,
-        password = password,
-        grab_points = int(grab_points),
-        robinhood_points = int(robinhood_points),
-        foodpanda_points = int(foodpanda_points),
-        coins = int(coins),
-        email = email,
-        phone_number = phone_number,
-        grab_id = grab_id,
-        robinhood_id = robinhood_id,
-        foodpanda_id = foodpanda_id,
-        co2_amount = int(co2_amount)
+        user_id = current_dict['user_id'],
+        username = current_dict['username'],
+        password = current_dict['password'],
+        grab_points = int(current_dict.get('grab_points', None)),
+        robinhood_points = int(current_dict.get('robinhood_points', None)),
+        foodpanda_points = int(current_dict.get('foodpanda_points', None)),
+        coins = int(current_dict['coins']),
+        email = current_dict['email'],
+        phone_number = current_dict['phone_number'],
+        grab_id = current_dict.get('grab_id', None),
+        robinhood_id = current_dict.get('robinhood_id', None),
+        foodpanda_id = current_dict.get('foodpanda_id', None),
+        co2_amount = int(current_dict['co2_amount'])
     )
     user_item.save()
     return {'status': 200}

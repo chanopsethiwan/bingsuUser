@@ -26,6 +26,12 @@ Resources:
       CodeUri: bingsuUser/
       Handler: app.add_user
       
+  GetUserByIdFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.get_user_by_id
+      
   UpdateUserFunction:
     Type: AWS::Serverless::Function 
     Properties:

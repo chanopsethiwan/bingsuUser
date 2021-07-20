@@ -1,5 +1,8 @@
 import json
 from .bingsuUser import PynamoBingsuUser
+import boto3
+from boto3.dynamodb.conditions import Key
+import os
 
 def lambda_handler(event, context):
     return {'data': 'Hello World'}
@@ -39,6 +42,17 @@ def add_user(event, context):
     user_item.save()
     return {'data': 'Hello World'}
 
+def get_user_by_id(event, context):
+    item = event['arguments']
+    user_id = item['user_id']
+    dynamodb = boto3.resource('dynamodb')
+
+    table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
+    response = table.query(
+        KeyConditionExpression=Key('user_id').eq(user_id)
+    )
+    return {'data': response['Items']}
+    
 def update_user(event, context):
     
     

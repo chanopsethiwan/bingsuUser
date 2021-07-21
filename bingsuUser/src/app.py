@@ -47,6 +47,12 @@ def get_user_by_id(event, context):
     
 def update_user(event, context):
     item = event['arguments']
+    username = item.get('username', None)
+    if username:
+        username_iterator = PynamoBingsuUser.username_index.query(username)
+        username_list = list(username_iterator)
+        if len(username_list) > 0:
+            return {'status': 400}
     user_id = item['user_id']
     iterator = PynamoBingsuUser.query(user_id)
     user_list = list(iterator)

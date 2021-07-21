@@ -9,6 +9,7 @@ def lambda_handler(event, context):
 
 def add_user(event, context):
     item = event['arguments']
+    
     user_item = PynamoBingsuUser(
         user_id = item['user_id'],
         username = item['username'],
@@ -30,14 +31,23 @@ def add_user(event, context):
 def get_user_by_id(event, context):
     item = event['arguments']
     user_id = item['user_id']
-    dynamodb = boto3.resource('dynamodb')
+#     dynamodb = boto3.resource('dynamodb')
 
-    table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
-    response = table.query(
-        KeyConditionExpression=Key('user_id').eq(user_id)
-    )
+#     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
+#     response = table.query(
+#         KeyConditionExpression=Key('user_id').eq(user_id)
+#     )
+
+    iterator = PynamoBingsuUser.query(user_id)
+    user_list = list(iterator)
+    lst = []
+    if len(user_list) > 0:
+        for user in user_list:
+            lst.append(user.returnJson())
+    else:
+        return {'status': 400}
     return {'status': 200,
-            'data': response['Items']}
+            'data': lst}
     
 def update_user(event, context):
     item = event['arguments']
@@ -56,7 +66,7 @@ def update_user(event, context):
         user_id = current_dict['user_id'],
         username = current_dict['username'],
         password = current_dict['password'],
-        grab_points = int(current_dict.get('grab_points', None)),
+        grab_points = current_dict.get('grab_points', None),
         robinhood_points = int(current_dict.get('robinhood_points', None)),
         foodpanda_points = int(current_dict.get('foodpanda_points', None)),
         coins = int(current_dict['coins']),

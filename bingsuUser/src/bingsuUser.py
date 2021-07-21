@@ -79,5 +79,8 @@ class PynamoBingsuUser(Model):
     robinhood_points_index = RobinhoodPointsIndex()
     foodpanda_points_index = FoodpandaPointsIndex()
     
+    def returnJson(self):
+        return vars(self).get('attribute_values')
+    
 
     

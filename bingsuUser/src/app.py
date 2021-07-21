@@ -9,7 +9,10 @@ def lambda_handler(event, context):
 
 def add_user(event, context):
     item = event['arguments']
-    
+    username_iterator = PynamoBingsuUser.username_index.query(item['username'])
+    username_list = list(username_iterator)
+    if len(username_list) > 0:
+        return {'status': 400}
     user_item = PynamoBingsuUser(
         user_id = item['user_id'],
         username = item['username'],
@@ -31,13 +34,6 @@ def add_user(event, context):
 def get_user_by_id(event, context):
     item = event['arguments']
     user_id = item['user_id']
-#     dynamodb = boto3.resource('dynamodb')
-
-#     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
-#     response = table.query(
-#         KeyConditionExpression=Key('user_id').eq(user_id)
-#     )
-
     iterator = PynamoBingsuUser.query(user_id)
     user_list = list(iterator)
     lst = []
@@ -52,13 +48,15 @@ def get_user_by_id(event, context):
 def update_user(event, context):
     item = event['arguments']
     user_id = item['user_id']
-    dynamodb = boto3.resource('dynamodb')
-
-    table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
-    response = table.query(
-        KeyConditionExpression=Key('user_id').eq(user_id)
-    )
-    current_dict = response['Items'][0]
+    iterator = PynamoBingsuUser.query(user_id)
+    user_list = list(iterator)
+    lst = []
+    if len(user_list) > 0:
+        for user in user_list:
+            lst.append(user.returnJson())
+    else:
+        return {'status': 400}
+    current_dict = lst[0]
     for i in item:
         current_dict[i] = item[i]
     
@@ -67,15 +65,15 @@ def update_user(event, context):
         username = current_dict['username'],
         password = current_dict['password'],
         grab_points = current_dict.get('grab_points', None),
-        robinhood_points = int(current_dict.get('robinhood_points', None)),
-        foodpanda_points = int(current_dict.get('foodpanda_points', None)),
-        coins = int(current_dict['coins']),
+        robinhood_points = current_dict.get('robinhood_points', None),
+        foodpanda_points = current_dict.get('foodpanda_points', None),
+        coins = current_dict['coins'],
         email = current_dict['email'],
         phone_number = current_dict['phone_number'],
         grab_id = current_dict.get('grab_id', None),
         robinhood_id = current_dict.get('robinhood_id', None),
         foodpanda_id = current_dict.get('foodpanda_id', None),
-        co2_amount = int(current_dict['co2_amount'])
+        co2_amount = current_dict['co2_amount']
     )
     user_item.save()
     return {'status': 200}

@@ -52,6 +52,12 @@ Resources:
           AttributeType: N
         - AttributeName: foodpanda_points
           AttributeType: N
+        - AttributeName: grab_id
+          AttributeType: S
+        - AttributeName: robinhood_id
+          AttributeType: S
+        - AttributeName: foodpanda_id
+          AttributeType: S
       BillingMode: PAY_PER_REQUEST
       KeySchema:
         - AttributeName: user_id
@@ -78,6 +84,24 @@ Resources:
         - IndexName: foodpanda_points
           KeySchema:
             - AttributeName: foodpanda_points
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: grab_id
+          KeySchema:
+            - AttributeName: grab_id
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: robinhood_id
+          KeySchema:
+            - AttributeName: robinhood_id
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: foodpanda_id
+          KeySchema:
+            - AttributeName: foodpanda_id
               KeyType: HASH
           Projection: 
             ProjectionType: ALL

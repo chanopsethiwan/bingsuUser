@@ -3,6 +3,7 @@ from .bingsuUser import PynamoBingsuUser
 import boto3
 from boto3.dynamodb.conditions import Key
 import os
+import uuid
 
 def lambda_handler(event, context):
     return {'data': 'Hello World'}
@@ -14,7 +15,7 @@ def add_user(event, context):
     if len(username_list) > 0:
         return {'status': 400}
     user_item = PynamoBingsuUser(
-        user_id = item['user_id'],
+        user_id = str(uuid.uuid4()),
         username = item['username'],
         password = item['password'],
         grab_points = item.get('grab_points', None),

@@ -55,6 +55,45 @@ class FoodpandaPointsIndex(GlobalSecondaryIndex):
 
     foodpanda_points = NumberAttribute(hash_key=True)
 
+class GrabIdIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'grab_id'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    grab_id = UnicodeAttribute(hash_key=True)
+    
+class RobinhoodIdIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'robinhood_id'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    robinhood_id = UnicodeAttribute(hash_key=True)
+    
+class FoodpandaIdIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'foodpanda_id'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    foodpanda_id = UnicodeAttribute(hash_key=True)
+    
 class PynamoBingsuUser(Model):
     ''' database to store user '''
     class Meta:
@@ -78,6 +117,9 @@ class PynamoBingsuUser(Model):
     grab_points_index = GrabPointsIndex()
     robinhood_points_index = RobinhoodPointsIndex()
     foodpanda_points_index = FoodpandaPointsIndex()
+    grab_id_index = GrabIdIndex()
+    robinhood_id_index = RobinhoodIdIndex()
+    foodpanda_id_index = FoodpandaIdIndex()
     
     def returnJson(self):
         return vars(self).get('attribute_values')

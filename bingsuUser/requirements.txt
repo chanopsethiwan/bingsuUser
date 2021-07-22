@@ -1,3 +1,4 @@
 requests
 pynamodb
 boto3
+uuid

@@ -9,13 +9,15 @@ def lambda_handler(event, context):
     return {'data': 'Hello World'}
 
 def add_user(event, context):
+    import uuid
+
     item = event['arguments']
     username_iterator = PynamoBingsuUser.username_index.query(item['username'])
     username_list = list(username_iterator)
     if len(username_list) > 0:
         return {'status': 400}
     user_item = PynamoBingsuUser(
-        user_id = generate_id(),
+        user_id = uuid.uuid4(),
         username = item['username'],
         password = item['password'],
         grab_points = item.get('grab_points', None),

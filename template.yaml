@@ -37,6 +37,12 @@ Resources:
     Properties:
       CodeUri: bingsuUser/
       Handler: app.update_user
+
+  GetAllUserRankingFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.get_all_by_ranking
             
   UserTable:
     Type: AWS::DynamoDB::Table

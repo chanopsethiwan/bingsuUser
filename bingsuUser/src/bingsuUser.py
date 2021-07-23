@@ -26,8 +26,9 @@ class GrabPointsIndex(GlobalSecondaryIndex):
         write_capacity_units = 1
         # All attributes are projected
         projection = AllProjection()
-
-    grab_points = NumberAttribute(hash_key=True)
+        
+    user_id = UnicodeAttribute(hash_key=True)    
+    grab_points = NumberAttribute(range_key=True)
     
 class RobinhoodPointsIndex(GlobalSecondaryIndex):
     """
@@ -40,7 +41,8 @@ class RobinhoodPointsIndex(GlobalSecondaryIndex):
         # All attributes are projected
         projection = AllProjection()
 
-    robinhood_points = NumberAttribute(hash_key=True)
+    user_id = UnicodeAttribute(hash_key=True)  
+    robinhood_points = NumberAttribute(range_key=True)
     
 class FoodpandaPointsIndex(GlobalSecondaryIndex):
     """
@@ -53,7 +55,8 @@ class FoodpandaPointsIndex(GlobalSecondaryIndex):
         # All attributes are projected
         projection = AllProjection()
 
-    foodpanda_points = NumberAttribute(hash_key=True)
+    user_id = UnicodeAttribute(hash_key=True)  
+    foodpanda_points = NumberAttribute(range_key=True)
 
 class GrabIdIndex(GlobalSecondaryIndex):
     """

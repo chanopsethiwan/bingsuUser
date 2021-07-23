@@ -71,20 +71,26 @@ Resources:
             ProjectionType: ALL
         - IndexName: grab_points
           KeySchema:
-            - AttributeName: grab_points
+            - AttributeName: user_id
               KeyType: HASH
+            - AttributeName: grab_points
+              KeyType: RANGE
           Projection: 
             ProjectionType: ALL
         - IndexName: robinhood_points
           KeySchema:
-            - AttributeName: robinhood_points
+            - AttributeName: user_id
               KeyType: HASH
+            - AttributeName: robinhood_points
+              KeyType: RANGE
           Projection: 
             ProjectionType: ALL
         - IndexName: foodpanda_points
           KeySchema:
-            - AttributeName: foodpanda_points
+            - AttributeName: user_id
               KeyType: HASH
+            - AttributeName: foodpanda_points
+              KeyType: RANGE
           Projection: 
             ProjectionType: ALL
         - IndexName: grab_id

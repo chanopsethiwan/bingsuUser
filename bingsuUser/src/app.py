@@ -86,15 +86,27 @@ def update_user(event, context):
     return {'status': 200}
 
 def get_all_by_ranking(event, context):
-    import pandas as pd
+    from pandas import DataFrame
+    top_100 = event['arguments']['top_100']
     company = str(event['arguments']['company']).lower()
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
 
-    response = table.query(IndexName='robinhood_points', KeyConditionExpression=Key('robinhood_points').lt(500), ScanIndexForward=False)
+    # response = table.query(IndexName='robinhood_points', KeyConditionExpression=Key('robinhood_points').lt(500), ScanIndexForward=False)
     
-    # response = table.scan()
-    # df = pd.DataFrame(response['Items'])
-    # df = df.sort_values(by=company + '_points', ascending=False)
-    # response = df.to_dict('records')
-    return response
+    response = table.scan()
+    df = DataFrame(response['Items'])
+    df = df.sort_values(by=company + '_points', ascending=False)
+    if top_100:
+        df_rank = df.head(100)
+    else:
+        user_position = df.index[df['user_id'] == event['arguments']['user_id']].tolist()[0]
+        if user_position < 50:
+            user_lower = 0
+        else:
+            user_lower = user_position - 50
+
+        df_rank = df[user_lower:user_position + 50]
+
+    response_rank = df_rank.to_json(orient = 'records')
+    return response_rank

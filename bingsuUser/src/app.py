@@ -91,10 +91,10 @@ def get_all_by_ranking(event, context):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
 
-    # response = table.query(IndexName='robinhood_points', KeyConditionExpression=Key('robinhood_points').lt(500), ScanIndexForward=False)
+    response = table.query(IndexName='robinhood_points', KeyConditionExpression=Key('robinhood_points').lt(500), ScanIndexForward=False)
     
-    response = table.scan()
-    df = pd.DataFrame(response['Items'])
-    df = df.sort_values(by=company + '_points', ascending=False)
-    response = df.to_dict('records')
+    # response = table.scan()
+    # df = pd.DataFrame(response['Items'])
+    # df = df.sort_values(by=company + '_points', ascending=False)
+    # response = df.to_dict('records')
     return response

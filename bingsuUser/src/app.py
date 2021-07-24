@@ -43,8 +43,27 @@ def get_user_by_id(event, context):
             lst.append(user.returnJson())
     else:
         return {'status': 400}
+    
+    tier_dict = {'diamond': 4000,
+                'platinum': 3750,
+                'gold': 3500,
+                'silver': 3000,
+                'bronze': 2000,
+                'gai':0}
+
+    company_name = {'grab':'', 'foodpanda':'', 'robinhood':''} # empty string will return tier
+    for name in company_name:
+        temp = lst[0][name + '_points']
+        for tier in tier_dict:
+            if temp >= tier_dict[tier]:
+                print(name, tier)
+                company_name[name] = tier
+                break
+            
+
     return {'status': 200,
-            'data': lst}
+            'data': lst,
+            'tier': company_name}
     
 def update_user(event, context):
     item = event['arguments']

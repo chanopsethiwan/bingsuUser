@@ -139,7 +139,7 @@ def authorise_user(event, context):
     if '@' in email_or_phone:
         iterator = PynamoBingsuUser.email_index.query(email_or_phone)
     else:
-        iterator = PynamoBingsuUser.phone_number_index(email_or_phone)
+        iterator = PynamoBingsuUser.phone_number_index.query(email_or_phone)
     iterator_list = list(iterator)
     lst = []
     if len(iterator_list) > 0:

@@ -143,7 +143,7 @@ def authorise_user(event, context):
     iterator_list = list(iterator)
     lst = []
     if len(iterator_list) > 0:
-        for i in interator_list:
+        for i in iterator_list:
             lst.append(i.returnJson())
     else:
         return {'status': 400}

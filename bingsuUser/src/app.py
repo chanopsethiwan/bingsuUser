@@ -131,3 +131,22 @@ def get_all_by_ranking(event, context):
     response_rank_json = json.loads(response_rank)
 
     return {'status': 200, 'data': response_rank_json}
+
+def authorise_user(event, context):
+    item = event['arguments']
+    email_or_phone = item['email_or_phone']
+    password = item['password']
+    if '@' in email_or_phone:
+        iterator = PynamoBingsuUser.email_index.query(email_or_phone)
+    else:
+        iterator = PynamoBingsuUser.phone_number_index(email_or_phone)
+    iterator_list = list(iterator)
+    lst = []
+    if len(iterator_list) > 0:
+        for i in interator_list:
+            lst.append(i.returnJson())
+    else:
+        return {'status': 400}
+    if password == lst[0]['password']:
+        return {'status': 200}
+    return {'status': 400}

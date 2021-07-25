@@ -3,6 +3,32 @@ from pynamodb.attributes import UnicodeAttribute, NumberAttribute
 from pynamodb.indexes import GlobalSecondaryIndex, AllProjection
 import os
 
+class PhoneNumberIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'phone_number'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    phone_number = UnicodeAttribute(hash_key=True)
+
+class EmailIndex(GlobalSecondaryIndex):
+    """
+    This class represents a global secondary index
+    """
+    class Meta:
+        index_name = 'email'
+        read_capacity_units = 1
+        write_capacity_units = 1
+        # All attributes are projected
+        projection = AllProjection()
+
+    email = UnicodeAttribute(hash_key=True)
+
 class UsernameIndex(GlobalSecondaryIndex):
     """
     This class represents a global secondary index
@@ -123,6 +149,8 @@ class PynamoBingsuUser(Model):
     grab_id_index = GrabIdIndex()
     robinhood_id_index = RobinhoodIdIndex()
     foodpanda_id_index = FoodpandaIdIndex()
+    email_index = EmailIndex()
+    phone_number_index = PhoneNumberIndex()
     
     def returnJson(self):
         return vars(self).get('attribute_values')

@@ -43,6 +43,12 @@ Resources:
     Properties:
       CodeUri: bingsuUser/
       Handler: app.get_all_by_ranking
+      
+  AuthoriseUserFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.authorise_user
             
   UserTable:
     Type: AWS::DynamoDB::Table
@@ -63,6 +69,10 @@ Resources:
         - AttributeName: robinhood_id
           AttributeType: S
         - AttributeName: foodpanda_id
+          AttributeType: S
+        - AttributeName: email
+          AttributeType: S
+        - AttributeName: phone_number
           AttributeType: S
       BillingMode: PAY_PER_REQUEST
       KeySchema:
@@ -114,6 +124,18 @@ Resources:
         - IndexName: foodpanda_id
           KeySchema:
             - AttributeName: foodpanda_id
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: email
+          KeySchema:
+            - AttributeName: email
+              KeyType: HASH
+          Projection: 
+            ProjectionType: ALL
+        - IndexName: phone_number
+          KeySchema:
+            - AttributeName: phone_number
               KeyType: HASH
           Projection: 
             ProjectionType: ALL

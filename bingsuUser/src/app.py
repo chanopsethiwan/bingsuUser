@@ -128,4 +128,6 @@ def get_all_by_ranking(event, context):
         df_rank = df[user_lower:user_position + 50]
 
     response_rank = df_rank.to_json(orient = 'records')
-    return {'status': 200, 'data': response_rank}
+    response_rank_json = json.loads(response_rank)
+
+    return {'status': 200, 'data': response_rank_json}

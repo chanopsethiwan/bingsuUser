@@ -157,7 +157,7 @@ def authorise_user(event, context):
                 'user_id': lst[0]['user_id']}
     return {'status': 400}
 
-def get_user_number(event, context):
+def get_user_count(event, context):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
     

@@ -115,7 +115,8 @@ def get_all_by_ranking(event, context):
     
     response = table.scan()
     df = DataFrame(response['Items'])
-    df = df.sort_values(by=company + '_points', ascending=False)
+    df = df.sort_values(by=company + '_points', ascending=False).reset_index(inplace=False)
+    df['index'] = df.index
     if top_100:
         df_rank = df.head(100)
     else:

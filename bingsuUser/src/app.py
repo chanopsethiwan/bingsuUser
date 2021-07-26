@@ -146,10 +146,8 @@ def authorise_user(event, context):
         for i in iterator_list:
             lst.append(i.returnJson())
     else:
-        return {'status': 400,
-                'user_id': None}
+        return {'status': 400}
     if password == lst[0]['password']:
         return {'status': 200,
                 'user_id': lst[0]['user_id']}
-    return {'status': 400,
-            'user_id': None}
+    return {'status': 400}

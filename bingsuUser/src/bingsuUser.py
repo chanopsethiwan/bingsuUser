@@ -141,6 +141,8 @@ class PynamoBingsuUser(Model):
     robinhood_id = UnicodeAttribute(null=True)
     foodpanda_id = UnicodeAttribute(null=True)
     co2_amount = NumberAttribute()
+    total_amount_tree = NumberAttribute()
+    total_co2_offset_amount = NumberAttribute()
     
     username_index = UsernameIndex()
     grab_points_index = GrabPointsIndex()

@@ -27,7 +27,9 @@ def add_user(event, context):
         grab_id = item.get('grab_id', None),
         robinhood_id = item.get('robinhood_id', None),
         foodpanda_id = item.get('foodpanda_id', None),
-        co2_amount = item['co2_amount']
+        co2_amount = item['co2_amount'],
+        total_amount_tree = 0,
+        total_co2_offset_amount = 0
     )
     user_item.save()
     return {'status': 200}
@@ -99,7 +101,9 @@ def update_user(event, context):
         grab_id = current_dict.get('grab_id', None),
         robinhood_id = current_dict.get('robinhood_id', None),
         foodpanda_id = current_dict.get('foodpanda_id', None),
-        co2_amount = current_dict['co2_amount']
+        co2_amount = current_dict['co2_amount'],
+        total_amount_tree = current_dict['total_amount_tree'],
+        total_co2_offset_amount = current_dict['total_co2_offset_amount']
     )
     user_item.save()
     return {'status': 200}

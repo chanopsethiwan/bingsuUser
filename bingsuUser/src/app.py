@@ -52,7 +52,7 @@ def get_user_by_id(event, context):
                 'gold': 3500,
                 'silver': 3000,
                 'bronze': 2000,
-                'gai':0}
+                'unranked':0}
 
     company_name = {'grab':'', 'foodpanda':'', 'robinhood':''} # empty string will return tier
     for name in company_name:

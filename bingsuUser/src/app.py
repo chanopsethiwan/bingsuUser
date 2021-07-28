@@ -14,8 +14,9 @@ def add_user(event, context):
     username_list = list(username_iterator)
     if len(username_list) > 0:
         return {'status': 400}
+    user_uuid = str(uuid4())
     user_item = PynamoBingsuUser(
-        user_id = str(uuid4()),
+        user_id = user_uuid,
         username = item['username'],
         password = item['password'],
         grab_points = 0,
@@ -32,7 +33,7 @@ def add_user(event, context):
         total_co2_offset_amount = 0
     )
     user_item.save()
-    return {'status': 200}
+    return {'status': 200, 'user_id': user_uuid}
 
 def get_user_by_id(event, context):
     item = event['arguments']

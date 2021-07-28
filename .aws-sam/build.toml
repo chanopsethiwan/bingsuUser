@@ -6,6 +6,6 @@ codeuri = "C:\\Users\\Chulabutrach\\Documents\\Coding\\Projects\\bingsu\\bingsuU
 runtime = "python3.8"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["TestFunction", "AddUserFunction", "GetUserByIdFunction", "UpdateUserFunction", "GetAllUserRankingFunction", "AuthoriseUserFunction"]
+functions = ["TestFunction", "AddUserFunction", "GetUserByIdFunction", "UpdateUserFunction", "GetAllUserRankingFunction", "AuthoriseUserFunction", "GetCountUser"]
 
 [layer_build_definitions]

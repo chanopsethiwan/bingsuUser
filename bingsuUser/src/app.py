@@ -86,10 +86,22 @@ def get_user_by_id(event, context):
 def update_user(event, context):
     item = event['arguments']
     username = item.get('username', None)
+    email = item.get('email', None)
+    phone_number = item.get('phone_number', None)
     if username:
         username_iterator = PynamoBingsuUser.username_index.query(username)
         username_list = list(username_iterator)
         if len(username_list) > 0:
+            return {'status': 400}
+    if email:
+        email_iterator = PynamoBingsuUser.email_index.query(email)
+        email_list = list(email_iterator)
+        if len(email_list) > 0:
+            return {'status': 400}
+    if phone_number:
+        phone_number_iterator = PynamoBingsuUser.phone_number_index.query(phone_number)
+        phone_number_list = list(phone_number_iterator)
+        if len(phone_number_list) > 0:
             return {'status': 400}
     user_id = item['user_id']
     iterator = PynamoBingsuUser.query(user_id)

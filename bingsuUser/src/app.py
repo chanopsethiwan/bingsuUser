@@ -10,6 +10,7 @@ def lambda_handler(event, context):
 
 # add user input: username, pass, coins, email, phone_number
 # todo: CO2 have to be 0, have to check for email and phonenumber, add error message
+# author: Chap
 def add_user(event, context):
     item = event['arguments']
     username_iterator = PynamoBingsuUser.username_index.query(item['username'])
@@ -73,6 +74,7 @@ def get_user_by_id(event, context):
 
 # input: user_id, the rest is optional
 # todo: check email and phonenumber
+# Author: Chap
 def update_user(event, context):
     item = event['arguments']
     username = item.get('username', None)
@@ -145,7 +147,8 @@ def get_all_by_ranking(event, context):
     return {'status': 200, 'data': response_rank_json}
 
 # input: email_or_phone, password
-# todo: if email correct password wrong return invalid password, if cant find user then say no invalid user credentials
+# todo: if email correct password wrong return invalid password, if cant find user then say no invalid user credentials (low priority)
+# Author: Chap
 def authorise_user(event, context):
     item = event['arguments']
     email_or_phone = item['email_or_phone']

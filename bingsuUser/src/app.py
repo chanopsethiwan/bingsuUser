@@ -8,6 +8,8 @@ from uuid import uuid4
 def lambda_handler(event, context):
     return {'data': 'Hello World'}
 
+# add user input: username, pass, coins, email, phone_number
+# todo: CO2 have to be 0, have to check for email and phonenumber, add error message
 def add_user(event, context):
     item = event['arguments']
     username_iterator = PynamoBingsuUser.username_index.query(item['username'])
@@ -35,6 +37,7 @@ def add_user(event, context):
     user_item.save()
     return {'status': 200, 'user_id': user_uuid}
 
+# input: user_id
 def get_user_by_id(event, context):
     item = event['arguments']
     user_id = item['user_id']
@@ -67,7 +70,9 @@ def get_user_by_id(event, context):
     return {'status': 200,
             'data': lst,
             'tier': company_name}
-    
+
+# input: user_id, the rest is optional
+# todo: check email and phonenumber
 def update_user(event, context):
     item = event['arguments']
     username = item.get('username', None)
@@ -109,9 +114,10 @@ def update_user(event, context):
     user_item.save()
     return {'status': 200}
 
+# input: company, user_id, top_100(flag)
 def get_all_by_ranking(event, context):
     from pandas import DataFrame
-    top_100 = event['arguments']['top_100']
+    top_100 = event['arguments']['top_100'] # if true will return top 100 else return 50+-
     company = str(event['arguments']['company']).lower()
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))
@@ -138,6 +144,8 @@ def get_all_by_ranking(event, context):
 
     return {'status': 200, 'data': response_rank_json}
 
+# input: email_or_phone, password
+# todo: if email correct password wrong return invalid password, if cant find user then say no invalid user credentials
 def authorise_user(event, context):
     item = event['arguments']
     email_or_phone = item['email_or_phone']
@@ -158,6 +166,7 @@ def authorise_user(event, context):
                 'user_id': lst[0]['user_id']}
     return {'status': 400}
 
+# input: no input
 def get_user_count(event, context):
     dynamodb = boto3.resource('dynamodb')
     table = dynamodb.Table(os.environ.get('BINGSU_USER_TABLE_NAME'))

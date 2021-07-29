@@ -16,7 +16,15 @@ def add_user(event, context):
     username_iterator = PynamoBingsuUser.username_index.query(item['username'])
     username_list = list(username_iterator)
     if len(username_list) > 0:
-        return {'status': 400}
+        return {'status': 400, 'user_id': 'username already exist in the database'}
+    email_iterator = PynamoBingsuUser.email_index.query(item['email'])
+    email_list = list(email_iterator)
+    if len(email_list) > 0:
+        return {'status': 400, 'user_id': 'email already exist in the database'}
+    phone_number_iterator = PynamoBingsuUser.phone_number_index.query(item['phone_number'])
+    phone_number_list = list(phone_number_iterator)
+    if len(phone_number_list) > 0:
+        return {'status': 400, 'user_id': 'phone number already exist in the database'}
     user_uuid = str(uuid4())
     user_item = PynamoBingsuUser(
         user_id = user_uuid,
@@ -31,7 +39,7 @@ def add_user(event, context):
         grab_id = item.get('grab_id', None),
         robinhood_id = item.get('robinhood_id', None),
         foodpanda_id = item.get('foodpanda_id', None),
-        co2_amount = item['co2_amount'],
+        co2_amount = 0,
         total_amount_tree = 0,
         total_co2_offset_amount = 0
     )

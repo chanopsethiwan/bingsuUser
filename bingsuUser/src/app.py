@@ -156,10 +156,10 @@ def get_all_by_ranking(event, context):
         df_rank = df.head(100)
     else:
         user_position = df.index[df['user_id'] == event['arguments']['user_id']].tolist()[0]
-        if user_position < 50:
+        if user_position < 5:
             user_lower = 0
         else:
-            user_lower = user_position - 50
+            user_lower = user_position - 5
 
         df_rank = df[user_lower:user_position + 50]
 

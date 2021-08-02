@@ -4,6 +4,8 @@ import boto3
 from boto3.dynamodb.conditions import Key
 import os
 from uuid import uuid4
+import random as r
+import names
 
 def lambda_handler(event, context):
     return {'data': 'Hello World'}
@@ -197,3 +199,37 @@ def get_user_count(event, context):
     response = table.scan()
     user_number = len(response['Items'])
     return {'status': 200, 'user_number': user_number}
+
+def add_many_random_users(event, context):
+    for i in range(10):
+        username = names.get_first_name()
+        username_iterator = PynamoBingsuUser.username_index.query(username)
+        username_list = list(username_iterator)
+        if len(username_list) > 0:
+            continue
+        ph_no = []
+        ph_no.append(0)
+        for i in range(9):
+            ph_no.append(r.randint(0, 9))
+        phone_number = ''.join(str(i) for i in ph_no)
+        phone_number_iterator = PynamoBingsuUser.phone_number_index.query(phone_number)
+        phone_number_list = list(phone_number_iterator)
+        if len(phone_number_list) > 0:
+            return continue
+        user_item = PynamoBingsuUser(
+            user_id = str(uuid4()),
+            username = username,
+            password = 'generated',
+            grab_points = r.randint(0,5000),
+            robinhood_points = r.randint(0,5000),
+            foodpanda_points = r.randint(0,5000),
+            coins = 0,
+            email = f'{username}@bingsu.com',
+            phone_number = phone_number,
+            co2_amount = 0
+            total_amount_tree = 0
+            total_co2_offset_amount = 0
+        )
+        user_item.save()
+    return {'status': 200}
+    

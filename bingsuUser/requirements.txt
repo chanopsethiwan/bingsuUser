@@ -2,3 +2,4 @@ requests
 pynamodb
 boto3
 pandas
+names

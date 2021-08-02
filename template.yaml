@@ -55,6 +55,12 @@ Resources:
     Properties:
       CodeUri: bingsuUser/
       Handler: app.get_user_count
+      
+  AddManyRandomUsersFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: bingsuUser/
+      Handler: app.add_many_random_users
 
   UserTable:
     Type: AWS::DynamoDB::Table

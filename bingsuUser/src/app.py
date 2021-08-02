@@ -215,7 +215,7 @@ def add_many_random_users(event, context):
         phone_number_iterator = PynamoBingsuUser.phone_number_index.query(phone_number)
         phone_number_list = list(phone_number_iterator)
         if len(phone_number_list) > 0:
-            return continue
+            continue
         user_item = PynamoBingsuUser(
             user_id = str(uuid4()),
             username = username,

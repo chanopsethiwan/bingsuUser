@@ -226,8 +226,8 @@ def add_many_random_users(event, context):
             coins = 0,
             email = f'{username}@bingsu.com',
             phone_number = phone_number,
-            co2_amount = 0
-            total_amount_tree = 0
+            co2_amount = 0,
+            total_amount_tree = 0,
             total_co2_offset_amount = 0
         )
         user_item.save()

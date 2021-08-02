@@ -201,7 +201,7 @@ def get_user_count(event, context):
     return {'status': 200, 'user_number': user_number}
 
 def add_many_random_users(event, context):
-    for i in range(10):
+    for i in range(50):
         username = names.get_first_name()
         username_iterator = PynamoBingsuUser.username_index.query(username)
         username_list = list(username_iterator)
